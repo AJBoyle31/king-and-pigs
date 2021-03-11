@@ -1,41 +1,55 @@
 extends KinematicBody2D
 
-var speed: = Vector2(250.0, 250.0)
+var speed: = Vector2(150.0, 200.0)
 export var GRAVITY: int = 500
 
 var _velocity: = Vector2.ZERO
+var _previous_velocity = Vector2.ZERO
 var current_animation
+var is_jump_interrupted
 const FLOOR_NORMAL = Vector2.UP
 
 enum {
-	IDLE,
+	MOVE,
 	RUN,
+	JUMP,
+	FALL,
 	ATTACK,
 	HURT
 }
 
+var state = MOVE
 
 onready var animations = $Animations
 onready var animationPlayer = $AnimationPlayer
 
 func _physics_process(delta):
-	var is_jump_interrupted: = Input.is_action_just_released("jump") and _velocity.y < 0.0
-	var direction = get_direction()
-	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
-	_velocity.y += GRAVITY * delta
-	var snap: Vector2 = Vector2.DOWN * 60.0 if direction.y == 0.0 else Vector2.ZERO
 	
-	if direction.x < 0:
-		current_animation.flip_h = true
-	elif direction.x > 0:
-		current_animation.flip_h = false
+	match state:
+		MOVE:
+			move_state(delta)
+		RUN:
+			animationPlayer.play("Run")
+		JUMP:
+			animationPlayer.play("Jump")
+		FALL:
+			animationPlayer.play("Fall")
+		ATTACK:
+			animationPlayer.play("Attack")
+		HURT:
+			pass
 	
-	if _velocity.x > 0 or _velocity.x < 0:
-		animationPlayer.play("Run")
-	elif _velocity.x == 0:
-		animationPlayer.play("Idle")
+	is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0
+	if is_jump_interrupted:
+		state = FALL
 	
-	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
+	
+	if Input.is_action_just_pressed("jump"):
+		state = JUMP
+	if Input.is_action_just_pressed("attack"):
+		state = ATTACK
+	
+	
 
 func get_direction() -> Vector2:
 	return Vector2(
@@ -46,17 +60,43 @@ func get_direction() -> Vector2:
 func calculate_move_velocity(
 		linear_velocity: Vector2,
 		direction: Vector2,
-		speed: Vector2,
+		speeds: Vector2,
 		is_jump_interrupted: bool
 	) -> Vector2:
 	var velocity: = linear_velocity
-	velocity.x = speed.x * direction.x
+	velocity.x = speeds.x * direction.x
 	if direction.y != 0.0:
-		velocity.y = speed.y * direction.y
+		velocity.y = speeds.y * direction.y
 	if is_jump_interrupted:
 		velocity.y = 0.0
 	return velocity
 
+
+
+func move():
+	if _previous_velocity.x < 0:
+		current_animation.flip_h = true
+		current_animation.offset.x = -7
+	elif _previous_velocity.x > 0:
+		current_animation.flip_h = false
+		current_animation.offset.x = 7
+	var snap: Vector2 = Vector2.DOWN * 60.0 if _velocity.y == 0.0 else Vector2.ZERO
+	
+	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
+
+
+func move_state(delta):
+	var direction = get_direction()
+	if direction != Vector2.ZERO:
+		_previous_velocity = direction
+		animationPlayer.play("Run")
+		_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
+		
+	else:
+		animationPlayer.play("Idle")
+		_velocity = calculate_move_velocity(_velocity, Vector2.ZERO, Vector2.ZERO, false)
+	_velocity.y += GRAVITY * delta
+	move()
 
 
 
