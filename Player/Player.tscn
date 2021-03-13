@@ -13,7 +13,7 @@
 radius = 4.11893
 height = 6.1374
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "Attack"
 length = 0.4
 tracks/0/type = "value"
@@ -29,7 +29,7 @@ tracks/0/keys = {
 "values": [ 2, 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "Fall"
 length = 0.1
 loop = true
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 resource_name = "Ground"
 length = 0.1
 tracks/0/type = "value"
@@ -62,7 +62,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=5]
 resource_name = "Hit"
 length = 0.5
 tracks/0/type = "value"
@@ -78,8 +78,7 @@ tracks/0/keys = {
 "values": [ 1, 0, 1, 0, 1 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
+[sub_resource type="Animation" id=6]
 length = 1.1
 loop = true
 tracks/0/type = "value"
@@ -112,8 +111,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Run"
+[sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -129,7 +127,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=9]
 script/source = "extends AnimationPlayer
 
 
@@ -194,14 +192,14 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attack = SubResource( 5 )
-anims/Fall = SubResource( 6 )
-anims/Ground = SubResource( 9 )
-anims/Hit = SubResource( 8 )
-anims/Idle = SubResource( 2 )
+anims/Attack = SubResource( 2 )
+anims/Fall = SubResource( 3 )
+anims/Ground = SubResource( 4 )
+anims/Hit = SubResource( 5 )
+anims/Idle = SubResource( 6 )
 anims/Jump = SubResource( 7 )
-anims/Run = SubResource( 3 )
-script = SubResource( 4 )
+anims/Run = SubResource( 8 )
+script = SubResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
