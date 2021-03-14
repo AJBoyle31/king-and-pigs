@@ -28,6 +28,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 2, 0, 1, 2 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_finished"
+} ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "Fall"
@@ -151,6 +165,7 @@ collision_layer = 2
 script = ExtResource( 4 )
 
 [node name="Animations" type="Node2D" parent="."]
+position = Vector2( 7, 0 )
 
 [node name="Idle" type="Sprite" parent="Animations"]
 texture = ExtResource( 1 )
@@ -186,7 +201,7 @@ visible = false
 texture = ExtResource( 8 )
 
 [node name="WorldCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -7, 11 )
+position = Vector2( 0, 11 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
@@ -202,5 +217,5 @@ script = SubResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.6, 0.6 )
+zoom = Vector2( 0.35, 0.35 )
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

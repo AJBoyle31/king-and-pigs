@@ -4,11 +4,11 @@ var speed: = Vector2(150.0, 200.0)
 export var GRAVITY: int = 500
 
 var _velocity: = Vector2.ZERO
-var _previous_velocity = Vector2.ZERO
-var _previous_animation: bool = true
+var _previous_velocity: = Vector2.ZERO
+var _previous_animation: bool = false
 var current_animation
-var is_jump_interrupted
-const FLOOR_NORMAL = Vector2.UP
+var did_land: bool = false
+const FLOOR_NORMAL: = Vector2.UP
 
 enum {
 	MOVE,
@@ -21,6 +21,7 @@ enum {
 
 var state = MOVE
 
+
 onready var worldCollision = $WorldCollision
 onready var animations = $Animations
 onready var animationPlayer = $AnimationPlayer
@@ -30,7 +31,7 @@ func _physics_process(delta):
 		MOVE:
 			move_state(delta)
 		ATTACK:
-			animationPlayer.play("Attack")
+			attack_state(delta)
 		HURT:
 			pass
 	
@@ -60,7 +61,7 @@ func calculate_move_velocity(
 	return velocity
 
 func move_state(delta):
-	is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0
+	var is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0
 	var direction = get_direction()
 	if direction != Vector2.ZERO:
 		_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
@@ -78,20 +79,28 @@ func move():
 	if _previous_velocity.x < 0:
 		current_animation.flip_h = true
 		_previous_animation = true
-		worldCollision.position.x = 7
+		animations.position.x = -7
 	elif _previous_velocity.x > 0:
 		current_animation.flip_h = false
 		_previous_animation = false
-		worldCollision.position.x = -7
+		animations.position.x = 7
+	
+func attack_state(delta):
+	animationPlayer.play("Attack")
 
-	
-	
+func attack_finished():
+	state = MOVE
 
 func playAnimation(velocity):
 	if velocity.y > 0:
 		animationPlayer.play("Fall")
+		did_land = true
 	elif velocity.y < 0:
 		animationPlayer.play("Jump")
+	elif did_land and is_on_floor():
+		animationPlayer.play("Ground")
+		yield(animationPlayer, "animation_finished")
+		did_land = false
 	elif velocity.x > 0 or velocity.x < 0 and is_on_floor():
 		animationPlayer.play("Run")
 	elif velocity.x == 0:
