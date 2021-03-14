@@ -153,9 +153,7 @@ script = ExtResource( 4 )
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="Idle" type="Sprite" parent="Animations"]
-visible = false
 texture = ExtResource( 1 )
-offset = Vector2( 7, 0 )
 hframes = 11
 
 [node name="Run" type="Sprite" parent="Animations"]
@@ -184,10 +182,11 @@ hframes = 2
 frame = 1
 
 [node name="Ground" type="Sprite" parent="Animations"]
+visible = false
 texture = ExtResource( 8 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 11 )
+[node name="WorldCollision" type="CollisionShape2D" parent="."]
+position = Vector2( -7, 11 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
@@ -203,5 +202,5 @@ script = SubResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.75, 0.75 )
+zoom = Vector2( 0.6, 0.6 )
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

@@ -5,6 +5,7 @@ export var GRAVITY: int = 500
 
 var _velocity: = Vector2.ZERO
 var _previous_velocity = Vector2.ZERO
+var _previous_animation: bool = true
 var current_animation
 var is_jump_interrupted
 const FLOOR_NORMAL = Vector2.UP
@@ -20,6 +21,7 @@ enum {
 
 var state = MOVE
 
+onready var worldCollision = $WorldCollision
 onready var animations = $Animations
 onready var animationPlayer = $AnimationPlayer
 
@@ -61,11 +63,12 @@ func move_state(delta):
 	is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0
 	var direction = get_direction()
 	if direction != Vector2.ZERO:
-		_previous_velocity = direction
 		_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
+		_previous_velocity = _velocity
 	else:
 		_velocity = calculate_move_velocity(_velocity, Vector2.ZERO, Vector2.ZERO, false)
 	_velocity.y += GRAVITY * delta
+	
 	move()
 
 func move():
@@ -74,11 +77,15 @@ func move():
 	playAnimation(_velocity)
 	if _previous_velocity.x < 0:
 		current_animation.flip_h = true
-		current_animation.offset.x = -7
+		_previous_animation = true
+		worldCollision.position.x = 7
 	elif _previous_velocity.x > 0:
 		current_animation.flip_h = false
-		current_animation.offset.x = 7
+		_previous_animation = false
+		worldCollision.position.x = -7
 
+	
+	
 
 func playAnimation(velocity):
 	if velocity.y > 0:
@@ -91,13 +98,14 @@ func playAnimation(velocity):
 		animationPlayer.play("Idle")
 
 
-func _change_animation(state: String) -> void:
+func _change_animation(anim_name: String) -> void:
 	for animation in animations.get_children():
-		if animation.name != state:
+		if animation.name != anim_name:
 			animation.hide()
 		else:
 			current_animation = animation
 	current_animation.show()
+	current_animation.flip_h = _previous_animation
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	_change_animation(anim_name)
