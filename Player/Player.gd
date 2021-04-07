@@ -3,7 +3,7 @@ class_name Player
 
 export var speed := 150.0
 export var gravity := 500.0
-export var jump_impulse := 175.0
+export var jump_impulse := 195.0
 var velocity
 var previous_velocity = Vector2.ZERO
 var flip_player = false
@@ -127,7 +127,6 @@ func get_input_direction() -> float:
 	
 
 func get_sprite_facing_direction() -> void:
-	print(flip_player)
 	if flip_player:
 		current_animation.scale.x = -1
 		animations.position.x = -7
@@ -147,3 +146,7 @@ func change_animation(anim_name: String) -> void:
 	#print(current_animation.name)
 
 
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	pass # Replace with function body.
