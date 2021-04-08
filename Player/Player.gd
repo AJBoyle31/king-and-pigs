@@ -13,6 +13,8 @@ var current_animation
 onready var fsm := $StateMachine
 onready var animationPlayer = $AnimationPlayer
 onready var animations = $Animations
+onready var hitboxPivot = $HitboxPivot
+onready var hammerHitbox = $HitboxPivot/HammerHitbox
 
 func _ready():
 	animation_state_machine = $AnimationTree.get("parameters/playback")
@@ -31,38 +33,7 @@ func _process(delta):
 #var did_land: bool = false
 #const FLOOR_NORMAL: = Vector2.UP
 #
-#enum {
-#	MOVE,
-#	RUN,
-#	JUMP,
-#	FALL,
-#	ATTACK,
-#	HURT
-#}
-#
-#var state = MOVE
-#
-#
-#onready var worldCollision = $WorldCollision
-#onready var animations = $Animations
-#onready var animationPlayer = $AnimationPlayer
-#
-#func _ready():
-#	state_machine = $AnimationTree.get("parameters/playback")
-#
-#func _physics_process(delta):
-#	match state:
-#		MOVE:
-#			move_state(delta)
-#		ATTACK:
-#			attack_state(delta)
-#		HURT:
-#			pass
-#
-#	if Input.is_action_just_pressed("attack"):
-#		state = ATTACK
-#
-#
+
 #
 #func get_direction() -> Vector2:
 #	return Vector2(
@@ -100,24 +71,9 @@ func _process(delta):
 #	var snap: Vector2 = Vector2.DOWN * 60.0 if _velocity.y == 0.0 else Vector2.ZERO
 #	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
 #
-#	if _velocity.x > 0 or _velocity.x < 0 and is_on_floor():
-#		state_machine.travel("Run")
-#		_change_animation("Run")
-#	if _velocity.x == 0:
-#		state_machine.travel("Idle")
-#		_change_animation("Idle")
+#	
 #
-#	if _previous_velocity.x < 0:
-#		current_animation.scale.x = -1
-#		animations.position.x = -7
-#	elif _previous_velocity.x > 0:
-#		current_animation.scale.x = 1
-#		animations.position.x = 7
-#
-## ISSUE: ATTACK IS HAPPENING TWICE WHEN PRESSED - ATTACK IDLE ATTACK
-#func attack_state(delta):
-#	state_machine.travel("Attack")
-#	_change_animation("Attack")
+#	
 
 func get_input_direction() -> float:
 	return (
@@ -130,9 +86,12 @@ func get_sprite_facing_direction() -> void:
 	if flip_player:
 		current_animation.scale.x = -1
 		animations.position.x = -7
+		hitboxPivot.position.x = -35
 	else:
 		current_animation.scale.x = 1
 		animations.position.x = 7
+		hitboxPivot.position.x = 35
+		
 
 
 func change_animation(anim_name: String) -> void:
