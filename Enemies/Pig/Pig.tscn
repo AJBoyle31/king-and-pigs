@@ -1,0 +1,332 @@
+[gd_scene load_steps=47 format=2]
+
+[ext_resource path="res://Assets/Characters/Pig/Idle (34x28).png" type="Texture" id=1]
+[ext_resource path="res://Assets/Characters/Pig/Run (34x28).png" type="Texture" id=2]
+[ext_resource path="res://Assets/Characters/Pig/Jump (34x28).png" type="Texture" id=3]
+[ext_resource path="res://Assets/Characters/Pig/Fall (34x28).png" type="Texture" id=4]
+[ext_resource path="res://Assets/Characters/Pig/Ground (34x28).png" type="Texture" id=5]
+[ext_resource path="res://Assets/Characters/Pig/Hit (34x28).png" type="Texture" id=6]
+[ext_resource path="res://Assets/Characters/Pig/Attack (34x28).png" type="Texture" id=7]
+[ext_resource path="res://Assets/Characters/Pig/Dead (34x28).png" type="Texture" id=8]
+[ext_resource path="res://Hit and Hurt Boxes/Hitbox.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Hit and Hurt Boxes/Hurtbox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Enemies/Pig/Pig.gd" type="Script" id=11]
+[ext_resource path="res://StateMachine/StateMachine.gd" type="Script" id=12]
+[ext_resource path="res://Enemies/Pig/Idle.gd" type="Script" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.96196, 7.63492 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Attack:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PunchHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Dead"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Dead:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Fall"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Fall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Ground"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Ground:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Hit:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1 ]
+}
+
+[sub_resource type="Animation" id=7]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Jump:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations/Run:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "Attack"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Dead"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Fall"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Ground"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "Hit"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachine" id=32]
+states/Attack/node = SubResource( 11 )
+states/Attack/position = Vector2( 626, 295 )
+states/Dead/node = SubResource( 12 )
+states/Dead/position = Vector2( 122, 235 )
+states/Fall/node = SubResource( 13 )
+states/Fall/position = Vector2( 427, -103 )
+states/Ground/node = SubResource( 14 )
+states/Ground/position = Vector2( 330, 20 )
+states/Hit/node = SubResource( 15 )
+states/Hit/position = Vector2( 323, 187 )
+states/Idle/node = SubResource( 16 )
+states/Idle/position = Vector2( 513, 141 )
+states/Jump/node = SubResource( 17 )
+states/Jump/position = Vector2( 599, -19 )
+states/Run/node = SubResource( 18 )
+states/Run/position = Vector2( 711, 141 )
+transitions = [ "Idle", "Run", SubResource( 19 ), "Run", "Idle", SubResource( 20 ), "Idle", "Jump", SubResource( 21 ), "Run", "Jump", SubResource( 22 ), "Jump", "Fall", SubResource( 23 ), "Fall", "Ground", SubResource( 24 ), "Ground", "Idle", SubResource( 25 ), "Idle", "Attack", SubResource( 26 ), "Run", "Attack", SubResource( 27 ), "Attack", "Idle", SubResource( 28 ), "Idle", "Hit", SubResource( 29 ), "Hit", "Idle", SubResource( 30 ), "Hit", "Dead", SubResource( 31 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -247, -69 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=33]
+
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 8.3311
+height = 0.0
+
+[node name="Pig" type="KinematicBody2D"]
+collision_layer = 4
+script = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.04236, 6.25953 )
+shape = SubResource( 1 )
+
+[node name="Animations" type="Node2D" parent="."]
+
+[node name="Idle" type="Sprite" parent="Animations"]
+texture = ExtResource( 1 )
+hframes = 11
+frame = 9
+
+[node name="Run" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 2 )
+hframes = 6
+
+[node name="Jump" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 3 )
+
+[node name="Fall" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="Ground" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 5 )
+
+[node name="Hit" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 6 )
+hframes = 2
+
+[node name="Attack" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 7 )
+hframes = 5
+frame = 4
+
+[node name="Dead" type="Sprite" parent="Animations"]
+visible = false
+texture = ExtResource( 8 )
+hframes = 4
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 2 )
+anims/Dead = SubResource( 3 )
+anims/Fall = SubResource( 4 )
+anims/Ground = SubResource( 5 )
+anims/Hit = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+anims/Jump = SubResource( 8 )
+anims/Run = SubResource( 9 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 32 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 33 )
+
+[node name="PunchHitbox" parent="." instance=ExtResource( 9 )]
+collision_layer = 32
+
+[node name="Hurtbox" parent="." instance=ExtResource( 10 )]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 2.52707, 6.68929 )
+shape = SubResource( 10 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 12 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
+
+[node name="Run" type="Node" parent="StateMachine"]
+
+[node name="Air" type="Node" parent="StateMachine"]
+
+[node name="Attack" type="Node" parent="StateMachine"]
+
+[editable path="Hurtbox"]

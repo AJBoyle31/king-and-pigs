@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Player
 
-export var speed := 150.0
+export var speed := 90.0
 export var gravity := 500.0
 export var jump_impulse := 195.0
 var velocity
