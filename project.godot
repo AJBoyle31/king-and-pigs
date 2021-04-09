@@ -8,9 +8,50 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Pig",
+"language": "GDScript",
+"path": "res://Enemies/Pig/Pig.gd"
+}, {
+"base": "State",
+"class": "PigState",
+"language": "GDScript",
+"path": "res://Enemies/Pig/PigState.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
+}, {
+"base": "State",
+"class": "PlayerState",
+"language": "GDScript",
+"path": "res://Player/PlayerState.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://StateMachine/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://StateMachine/StateMachine.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "StateMachineCharacter",
+"language": "GDScript",
+"path": "res://StateMachine/StateMachineCharacter.gd"
+} ]
 _global_script_class_icons={
-
+"Pig": "",
+"PigState": "",
+"Player": "",
+"PlayerState": "",
+"State": "",
+"StateMachine": "",
+"StateMachineCharacter": ""
 }
 
 [application]
@@ -53,6 +94,10 @@ attack={
 2d_physics/layer_1="World"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
+2d_physics/layer_4="PlayerHitbox"
+2d_physics/layer_5="PlayerHurtbox"
+2d_physics/layer_6="EnemyHitbox"
+2d_physics/layer_7="EnemyHurtbox"
 
 [rendering]
 
