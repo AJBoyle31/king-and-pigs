@@ -61,7 +61,7 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=3]
 resource_name = "Dead"
 length = 0.4
 tracks/0/type = "value"
@@ -77,8 +77,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Fall"
+[sub_resource type="Animation" id=4]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -94,8 +93,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Ground"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Animations/Ground:frame")
@@ -110,8 +108,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Hit"
+[sub_resource type="Animation" id=6]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Animations/Hit:frame")
@@ -126,7 +123,7 @@ tracks/0/keys = {
 "values": [ 1, 0, 1, 0, 1 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 1.1
 loop = true
 tracks/0/type = "value"
@@ -142,8 +139,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "Jump"
+[sub_resource type="Animation" id=8]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -159,7 +155,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -175,53 +171,47 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "Attack"
 
-[sub_resource type="AnimationNodeAnimation" id=32]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Dead"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "Fall"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "Ground"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "Hit"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "Jump"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "Run"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=24]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=25]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
@@ -229,34 +219,40 @@ auto_advance = true
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachine" id=28]
-states/Attack/node = SubResource( 9 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=31]
+states/Attack/node = SubResource( 10 )
 states/Attack/position = Vector2( 549, 312 )
-states/Dead/node = SubResource( 32 )
+states/Dead/node = SubResource( 11 )
 states/Dead/position = Vector2( 7, 244 )
-states/Fall/node = SubResource( 10 )
+states/Fall/node = SubResource( 12 )
 states/Fall/position = Vector2( 474, -19 )
-states/Ground/node = SubResource( 11 )
+states/Ground/node = SubResource( 13 )
 states/Ground/position = Vector2( 293, 35 )
-states/Hit/node = SubResource( 12 )
+states/Hit/node = SubResource( 14 )
 states/Hit/position = Vector2( 177, 244 )
-states/Idle/node = SubResource( 13 )
+states/Idle/node = SubResource( 15 )
 states/Idle/position = Vector2( 381, 180 )
-states/Jump/node = SubResource( 14 )
+states/Jump/node = SubResource( 16 )
 states/Jump/position = Vector2( 544, 78 )
-states/Run/node = SubResource( 15 )
+states/Run/node = SubResource( 17 )
 states/Run/position = Vector2( 672, 180 )
-transitions = [ "Idle", "Run", SubResource( 16 ), "Run", "Idle", SubResource( 17 ), "Idle", "Attack", SubResource( 18 ), "Run", "Attack", SubResource( 19 ), "Attack", "Idle", SubResource( 20 ), "Idle", "Jump", SubResource( 21 ), "Run", "Jump", SubResource( 22 ), "Jump", "Fall", SubResource( 23 ), "Fall", "Ground", SubResource( 24 ), "Ground", "Idle", SubResource( 25 ), "Idle", "Hit", SubResource( 26 ), "Hit", "Idle", SubResource( 27 ), "Hit", "Dead", SubResource( 33 ) ]
+transitions = [ "Idle", "Run", SubResource( 18 ), "Run", "Idle", SubResource( 19 ), "Idle", "Attack", SubResource( 20 ), "Run", "Attack", SubResource( 21 ), "Attack", "Idle", SubResource( 22 ), "Idle", "Jump", SubResource( 23 ), "Run", "Jump", SubResource( 24 ), "Jump", "Fall", SubResource( 25 ), "Fall", "Ground", SubResource( 26 ), "Ground", "Idle", SubResource( 27 ), "Idle", "Hit", SubResource( 28 ), "Hit", "Idle", SubResource( 29 ), "Hit", "Dead", SubResource( 30 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -217, -66 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=29]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=32]
 
-[sub_resource type="CapsuleShape2D" id=30]
+[sub_resource type="CapsuleShape2D" id=33]
 height = 10.8947
 
 [node name="Player" type="KinematicBody2D"]
@@ -267,10 +263,9 @@ script = ExtResource( 4 )
 position = Vector2( 7, 0 )
 
 [node name="Idle" type="Sprite" parent="Animations"]
-visible = false
 texture = ExtResource( 1 )
 hframes = 11
-frame = 1
+frame = 3
 
 [node name="Run" type="Sprite" parent="Animations"]
 visible = false
@@ -293,6 +288,7 @@ visible = false
 texture = ExtResource( 5 )
 
 [node name="Hit" type="Sprite" parent="Animations"]
+visible = false
 texture = ExtResource( 7 )
 hframes = 2
 frame = 1
@@ -312,20 +308,20 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 2 )
-anims/Dead = SubResource( 31 )
-anims/Fall = SubResource( 3 )
-anims/Ground = SubResource( 4 )
-anims/Hit = SubResource( 5 )
-anims/Idle = SubResource( 6 )
-anims/Jump = SubResource( 7 )
-anims/Run = SubResource( 8 )
+anims/Dead = SubResource( 3 )
+anims/Fall = SubResource( 4 )
+anims/Ground = SubResource( 5 )
+anims/Hit = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+anims/Jump = SubResource( 8 )
+anims/Run = SubResource( 9 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 28 )
+tree_root = SubResource( 31 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 process_mode = 0
-parameters/playback = SubResource( 29 )
+parameters/playback = SubResource( 32 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -353,7 +349,7 @@ position = Vector2( 35, 0 )
 [node name="HammerHitbox" parent="HitboxPivot" instance=ExtResource( 14 )]
 
 [node name="CollisionShape2D" parent="HitboxPivot/HammerHitbox" index="0"]
-shape = SubResource( 30 )
+shape = SubResource( 33 )
 disabled = true
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
