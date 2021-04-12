@@ -16,6 +16,7 @@ onready var animationPlayer = $AnimationPlayer
 onready var animations = $Animations
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var pacingTimer = $PacingTimer
+onready var idleTimer = $IdleTimer
 
 func _ready():
 	animation_state_machine = $AnimationTree.get("parameters/playback")
@@ -26,10 +27,10 @@ func _process(delta):
 func get_sprite_facing_direction() -> void:
 	if flip_player:
 		current_animation.scale.x = -1
-#		animations.position.x = -7
+		animations.position.x = 2.5
 	else:
 		current_animation.scale.x = 1
-#		animations.position.x = 7
+		animations.position.x = -2.5
 		
 
 
@@ -44,6 +45,8 @@ func change_animation(anim_name: String) -> void:
 	#print(current_animation.name)
 
 
-func _on_Timer_timeout():
+func _on_IdleTimer_timeout():
+	flip_player = !flip_player
+
+func _on_PacingTimer_timeout():
 	direction *= -1
-	

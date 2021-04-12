@@ -1,20 +1,26 @@
 extends PigState
 
 func physics_update(delta: float) -> void:
-	print("Run State")
-	print("Velocity: " + str(pig.velocity))
+	print("Chase State")
+	pig.pacingTimer.paused = true
 #	if not pig.is_on_floor():
 #		state_machine.transition_to("Air")
 #		return
-	if pig.playerDetectionZone.can_see_player():
-		print("Chasing")
-		pig.pacingTimer.paused = true
-		var player = pig.playerDetectionZone.player
-		if player != null:
-			pig.direction = 1 if player.global_position.x - pig.global_position.x > 0 else -1
-			
+	
+	var player = pig.playerDetectionZone.player
+	if player != null:
+		var distance_apart = player.global_position.x - pig.global_position.x 
+		if distance_apart < 25 and distance_apart > -25:
+			state_machine.transition_to("Attack")
+			return
+		else:
+			pig.direction = 1 if distance_apart > 0 else -1
 	else:
-		pig.pacingTimer.paused = false
+		state_machine.transition_to("Patrol")
+		return
+	
+	
+
 	pig.velocity.x = pig.speed * pig.direction
 	if pig.velocity.x > 0:
 		pig.flip_player = true
@@ -35,3 +41,5 @@ func physics_update(delta: float) -> void:
 #		state_machine.transition_to("Idle")
 #	elif Input.is_action_just_pressed("attack"):
 #		state_machine.transition_to("Attack", {attack = true})
+
+

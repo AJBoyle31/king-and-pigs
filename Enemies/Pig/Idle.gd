@@ -3,9 +3,12 @@ extends PigState
 func enter(_msg := {}) -> void:
 	print("Idle State")
 	pig.velocity = Vector2.ZERO
+	pig.pacingTimer.paused = true
+	pig.idleTimer.paused = false
 	pig.animation_state_machine.travel("Idle")
 	pig.change_animation("Idle")
-
+	yield(get_tree().create_timer(2), "timeout")
+	state_machine.transition_to("Patrol")
 
 func physics_update(_delta: float) -> void:
 	
