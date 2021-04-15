@@ -13,4 +13,7 @@ func enter(msg := {}) -> void:
 		state_machine.transition_to("Patrol")
 
 func physics_update(delta: float) -> void:
-	pass
+	if pig.hit:
+		state_machine.transition_to("Hit")
+		return
+	

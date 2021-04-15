@@ -12,6 +12,10 @@ func enter(_msg := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	
+	if pig.hit:
+		state_machine.transition_to("Hit")
+		return
+	
 	if not pig.is_on_floor():
 		state_machine.transition_to("Air")
 		return

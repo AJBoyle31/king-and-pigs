@@ -2,8 +2,13 @@ extends PigState
 
 func physics_update(delta: float) -> void:
 	print("Patrol State")
+	
 	pig.pacingTimer.paused = false
 	pig.idleTimer.paused = true
+	if pig.hit:
+		state_machine.transition_to("Hit")
+		return
+	
 #	if not pig.is_on_floor():
 #		state_machine.transition_to("Air")
 #		return

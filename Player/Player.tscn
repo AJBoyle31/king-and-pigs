@@ -248,7 +248,7 @@ states/Run/node = SubResource( 17 )
 states/Run/position = Vector2( 672, 180 )
 transitions = [ "Idle", "Run", SubResource( 18 ), "Run", "Idle", SubResource( 19 ), "Idle", "Attack", SubResource( 20 ), "Run", "Attack", SubResource( 21 ), "Attack", "Idle", SubResource( 22 ), "Idle", "Jump", SubResource( 23 ), "Run", "Jump", SubResource( 24 ), "Jump", "Fall", SubResource( 25 ), "Fall", "Ground", SubResource( 26 ), "Ground", "Idle", SubResource( 27 ), "Idle", "Hit", SubResource( 28 ), "Hit", "Idle", SubResource( 29 ), "Hit", "Dead", SubResource( 30 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -217, -66 )
+graph_offset = Vector2( -208, 9 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=32]
 
@@ -265,7 +265,7 @@ position = Vector2( 7, 0 )
 [node name="Idle" type="Sprite" parent="Animations"]
 texture = ExtResource( 1 )
 hframes = 11
-frame = 1
+frame = 6
 
 [node name="Run" type="Sprite" parent="Animations"]
 visible = false
@@ -347,6 +347,7 @@ script = ExtResource( 13 )
 position = Vector2( 35, 0 )
 
 [node name="HammerHitbox" parent="HitboxPivot" instance=ExtResource( 14 )]
+collision_mask = 64
 
 [node name="CollisionShape2D" parent="HitboxPivot/HammerHitbox" index="0"]
 shape = SubResource( 33 )

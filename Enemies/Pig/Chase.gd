@@ -3,6 +3,9 @@ extends PigState
 func physics_update(delta: float) -> void:
 	print("Chase State")
 	pig.pacingTimer.paused = true
+	if pig.hit:
+		state_machine.transition_to("Hit")
+		return
 #	if not pig.is_on_floor():
 #		state_machine.transition_to("Air")
 #		return

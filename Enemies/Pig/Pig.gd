@@ -10,6 +10,8 @@ var previous_velocity = Vector2.ZERO
 var flip_player = true
 var animation_state_machine
 var current_animation
+var hit = false
+var dead = false
 
 onready var fsm := $StateMachine
 onready var animationPlayer = $AnimationPlayer
@@ -17,12 +19,14 @@ onready var animations = $Animations
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var pacingTimer = $PacingTimer
 onready var idleTimer = $IdleTimer
+onready var stats = $Stats
 
 func _ready():
 	animation_state_machine = $AnimationTree.get("parameters/playback")
 
 func _process(delta):
 	get_sprite_facing_direction()
+	
 
 func get_sprite_facing_direction() -> void:
 	if flip_player:
@@ -50,3 +54,11 @@ func _on_IdleTimer_timeout():
 
 func _on_PacingTimer_timeout():
 	direction *= -1
+
+func _on_Stats_no_health():
+	dead = true
+
+func _on_Hurtbox_area_entered(area):
+	if not dead:
+		hit = true
+		stats.health -= area.damage
