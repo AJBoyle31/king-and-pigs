@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://Assets/Characters/Pig/Idle (34x28).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Characters/Pig/Run (34x28).png" type="Texture" id=2]
@@ -46,7 +46,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.4 ),
+"times": PoolRealArray( 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -243,11 +243,15 @@ graph_offset = Vector2( -143, 73 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=32]
 
+[sub_resource type="CapsuleShape2D" id=36]
+radius = 4.25
+height = 8.0
+
 [sub_resource type="CapsuleShape2D" id=33]
 radius = 8.3311
 height = 0.0
 
-[sub_resource type="CapsuleShape2D" id=34]
+[sub_resource type="CapsuleShape2D" id=35]
 height = 95.0
 
 [node name="Pig" type="KinematicBody2D"]
@@ -268,9 +272,10 @@ hframes = 11
 frame = 2
 
 [node name="Run" type="Sprite" parent="Animations"]
+visible = false
 texture = ExtResource( 2 )
 hframes = 6
-frame = 1
+frame = 3
 
 [node name="Jump" type="Sprite" parent="Animations"]
 visible = false
@@ -290,7 +295,6 @@ texture = ExtResource( 6 )
 hframes = 2
 
 [node name="Attack" type="Sprite" parent="Animations"]
-visible = false
 texture = ExtResource( 7 )
 hframes = 5
 
@@ -317,6 +321,11 @@ parameters/playback = SubResource( 32 )
 
 [node name="PunchHitbox" parent="." instance=ExtResource( 9 )]
 collision_layer = 32
+
+[node name="CollisionShape2D" parent="PunchHitbox" index="0"]
+position = Vector2( -14.25, -3.25 )
+shape = SubResource( 36 )
+disabled = true
 
 [node name="Hurtbox" parent="." instance=ExtResource( 10 )]
 collision_layer = 64
@@ -354,18 +363,21 @@ autostart = true
 autostart = true
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource( 15 )]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 position = Vector2( 0, 4 )
 rotation = 1.5708
-shape = SubResource( 34 )
+shape = SubResource( 35 )
 
 [node name="Stats" parent="." instance=ExtResource( 19 )]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="PacingTimer" to="." method="_on_PacingTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+
+[editable path="PunchHitbox"]
 
 [editable path="Hurtbox"]
 
