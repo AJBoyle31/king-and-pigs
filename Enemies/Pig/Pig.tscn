@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Assets/Characters/Pig/Idle (34x28).png" type="Texture" id=1]
 [ext_resource path="res://Assets/Characters/Pig/Run (34x28).png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://Enemies/Pig/Patrol.gd" type="Script" id=18]
 [ext_resource path="res://Stats.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Enemies/Pig/Dead.gd" type="Script" id=20]
+[ext_resource path="res://Enemies/Pig/Air.gd" type="Script" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.96196, 7.63492 )
@@ -228,7 +229,7 @@ states/Dead/position = Vector2( 122, 235 )
 states/Fall/node = SubResource( 12 )
 states/Fall/position = Vector2( 427, -103 )
 states/Ground/node = SubResource( 13 )
-states/Ground/position = Vector2( 330, 20 )
+states/Ground/position = Vector2( 331, 20 )
 states/Hit/node = SubResource( 14 )
 states/Hit/position = Vector2( 323, 187 )
 states/Idle/node = SubResource( 15 )
@@ -239,15 +240,15 @@ states/Run/node = SubResource( 17 )
 states/Run/position = Vector2( 711, 141 )
 transitions = [ "Idle", "Run", SubResource( 18 ), "Run", "Idle", SubResource( 19 ), "Idle", "Jump", SubResource( 20 ), "Run", "Jump", SubResource( 21 ), "Jump", "Fall", SubResource( 22 ), "Fall", "Ground", SubResource( 23 ), "Ground", "Idle", SubResource( 24 ), "Idle", "Attack", SubResource( 25 ), "Run", "Attack", SubResource( 26 ), "Attack", "Idle", SubResource( 27 ), "Idle", "Hit", SubResource( 28 ), "Hit", "Idle", SubResource( 29 ), "Hit", "Dead", SubResource( 30 ) ]
 start_node = "Run"
-graph_offset = Vector2( -143, 73 )
+graph_offset = Vector2( -190, -119 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=32]
 
-[sub_resource type="CapsuleShape2D" id=36]
+[sub_resource type="CapsuleShape2D" id=33]
 radius = 4.25
 height = 8.0
 
-[sub_resource type="CapsuleShape2D" id=33]
+[sub_resource type="CapsuleShape2D" id=34]
 radius = 8.3311
 height = 0.0
 
@@ -272,10 +273,9 @@ hframes = 11
 frame = 2
 
 [node name="Run" type="Sprite" parent="Animations"]
-visible = false
 texture = ExtResource( 2 )
 hframes = 6
-frame = 3
+frame = 5
 
 [node name="Jump" type="Sprite" parent="Animations"]
 visible = false
@@ -295,8 +295,10 @@ texture = ExtResource( 6 )
 hframes = 2
 
 [node name="Attack" type="Sprite" parent="Animations"]
+visible = false
 texture = ExtResource( 7 )
 hframes = 5
+frame = 1
 
 [node name="Dead" type="Sprite" parent="Animations"]
 visible = false
@@ -324,15 +326,14 @@ collision_layer = 32
 
 [node name="CollisionShape2D" parent="PunchHitbox" index="0"]
 position = Vector2( -14.25, -3.25 )
-shape = SubResource( 36 )
-disabled = true
+shape = SubResource( 33 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 10 )]
 collision_layer = 64
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, 4 )
-shape = SubResource( 33 )
+shape = SubResource( 34 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 12 )
@@ -356,6 +357,9 @@ script = ExtResource( 14 )
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 20 )
 
+[node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource( 21 )
+
 [node name="PacingTimer" type="Timer" parent="."]
 autostart = true
 
@@ -363,7 +367,6 @@ autostart = true
 autostart = true
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource( 15 )]
-visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
@@ -372,6 +375,7 @@ rotation = 1.5708
 shape = SubResource( 35 )
 
 [node name="Stats" parent="." instance=ExtResource( 19 )]
+max_health = 2
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="PacingTimer" to="." method="_on_PacingTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]

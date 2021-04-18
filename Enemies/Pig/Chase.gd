@@ -6,9 +6,9 @@ func physics_update(delta: float) -> void:
 	if pig.hit:
 		state_machine.transition_to("Hit")
 		return
-#	if not pig.is_on_floor():
-#		state_machine.transition_to("Air")
-#		return
+	if not pig.is_on_floor():
+		state_machine.transition_to("Air")
+		return
 	
 	var player = pig.playerDetectionZone.player
 	if player != null:
@@ -37,12 +37,5 @@ func physics_update(delta: float) -> void:
 	pig.change_animation("Run")
 	
 	
-
-#	if Input.is_action_just_pressed("jump"):
-#		state_machine.transition_to("Air", {do_jump = true})
-#	elif is_equal_approx(input_direction_x, 0.0):
-#		state_machine.transition_to("Idle")
-#	elif Input.is_action_just_pressed("attack"):
-#		state_machine.transition_to("Attack", {attack = true})
 
 

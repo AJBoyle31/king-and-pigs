@@ -8,10 +8,9 @@ func physics_update(delta: float) -> void:
 	if pig.hit:
 		state_machine.transition_to("Hit")
 		return
-	
-#	if not pig.is_on_floor():
-#		state_machine.transition_to("Air")
-#		return
+	if not pig.is_on_floor():
+		state_machine.transition_to("Air")
+		return
 	if pig.playerDetectionZone.can_see_player():
 		state_machine.transition_to("Chase")
 	
