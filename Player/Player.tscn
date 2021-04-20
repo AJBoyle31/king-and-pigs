@@ -257,6 +257,7 @@ height = 10.8947
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource( 4 )
 
 [node name="Animations" type="Node2D" parent="."]
@@ -265,7 +266,7 @@ position = Vector2( 7, 0 )
 [node name="Idle" type="Sprite" parent="Animations"]
 texture = ExtResource( 1 )
 hframes = 11
-frame = 1
+frame = 5
 
 [node name="Run" type="Sprite" parent="Animations"]
 visible = false

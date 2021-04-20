@@ -108,4 +108,5 @@ attack={
 
 [rendering]
 
+quality/2d/use_nvidia_rect_flicker_workaround=true
 environment/default_environment="res://default_env.tres"

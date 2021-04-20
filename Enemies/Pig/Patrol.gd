@@ -1,10 +1,14 @@
 extends PigState
 
-func physics_update(delta: float) -> void:
+func enter(_msg := {}) -> void:
 	print("Patrol State")
-	
 	pig.pacingTimer.paused = false
 	pig.idleTimer.paused = true
+	pig.animation_state_machine.travel("Run")
+	pig.change_animation("Run")
+	
+
+func physics_update(delta: float) -> void:
 	if pig.hit:
 		state_machine.transition_to("Hit")
 		return
@@ -13,8 +17,11 @@ func physics_update(delta: float) -> void:
 		return
 	if pig.playerDetectionZone.can_see_player():
 		state_machine.transition_to("Chase")
+	if pig.is_on_wall():
+		pig.pacingTimer.paused = true
+		pig.direction *= -1
 	
-	pig.pacingTimer.paused = false
+		
 	pig.velocity.x = pig.speed * pig.direction
 	if pig.velocity.x > 0:
 		pig.flip_player = true
@@ -24,8 +31,7 @@ func physics_update(delta: float) -> void:
 	pig.velocity.y += pig.gravity * delta
 	pig.velocity = pig.move_and_slide(pig.velocity, Vector2.UP)
 	
-	pig.animation_state_machine.travel("Run")
-	pig.change_animation("Run")
+	
 	
 
 

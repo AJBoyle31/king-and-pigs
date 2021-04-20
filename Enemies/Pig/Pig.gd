@@ -12,6 +12,8 @@ var animation_state_machine
 var current_animation
 var hit = false
 var dead = false
+var nextState = false
+
 
 onready var fsm := $StateMachine
 onready var animationPlayer = $AnimationPlayer
@@ -19,6 +21,7 @@ onready var animations = $Animations
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var pacingTimer = $PacingTimer
 onready var idleTimer = $IdleTimer
+onready var animationTimer = $AnimationTimer
 onready var stats = $Stats
 
 func _ready():
@@ -48,7 +51,6 @@ func change_animation(anim_name: String) -> void:
 	current_animation.show()
 	#print(current_animation.name)
 
-
 func _on_IdleTimer_timeout():
 	flip_player = !flip_player
 
@@ -62,3 +64,7 @@ func _on_Hurtbox_area_entered(area):
 	if not dead:
 		hit = true
 		stats.health -= area.damage
+
+
+func _on_AnimationTimer_timeout():
+	nextState = true

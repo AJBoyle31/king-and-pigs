@@ -1,8 +1,12 @@
 extends PigState
 
-func physics_update(delta: float) -> void:
+func enter(msg := {}) -> void:
 	print("Chase State")
 	pig.pacingTimer.paused = true
+	pig.idleTimer.paused = true
+
+func physics_update(delta: float) -> void:
+	
 	if pig.hit:
 		state_machine.transition_to("Hit")
 		return

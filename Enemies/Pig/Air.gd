@@ -3,10 +3,10 @@ extends PigState
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
-	pass
+	print("Air State")
 
 func physics_update(delta: float) -> void:
-	print("Air State")
+	
 	# Horizontal movement.
 	
 	# Vertical movement.
