@@ -14,3 +14,7 @@ position = Vector2( 616, 304 )
 
 [node name="Pig" parent="." instance=ExtResource( 3 )]
 position = Vector2( 496, 307 )
+
+[node name="Pig2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 760, 275 )
+patrol = false

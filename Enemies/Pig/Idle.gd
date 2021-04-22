@@ -7,13 +7,14 @@ func enter(_msg := {}) -> void:
 	pig.idleTimer.paused = false
 	pig.animation_state_machine.travel("Idle")
 	pig.change_animation("Idle")
-	pig.animationTimer.start(2.0)
+	if pig.patrol:
+		pig.animationTimer.start(2.0)
 	
 
 
 func physics_update(_delta: float) -> void:
 	
-	if pig.nextState:
+	if pig.nextState and pig.patrol:
 		pig.nextState = false
 		state_machine.transition_to("Patrol")
 	

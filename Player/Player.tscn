@@ -266,7 +266,7 @@ position = Vector2( 7, 0 )
 [node name="Idle" type="Sprite" parent="Animations"]
 texture = ExtResource( 1 )
 hframes = 11
-frame = 5
+frame = 10
 
 [node name="Run" type="Sprite" parent="Animations"]
 visible = false

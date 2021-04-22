@@ -276,7 +276,7 @@ frame = 2
 [node name="Run" type="Sprite" parent="Animations"]
 texture = ExtResource( 2 )
 hframes = 6
-frame = 3
+frame = 4
 
 [node name="Jump" type="Sprite" parent="Animations"]
 visible = false
@@ -328,6 +328,7 @@ collision_layer = 32
 [node name="CollisionShape2D" parent="PunchHitbox" index="0"]
 position = Vector2( -14.25, -3.25 )
 shape = SubResource( 33 )
+disabled = true
 
 [node name="Hurtbox" parent="." instance=ExtResource( 10 )]
 collision_layer = 64

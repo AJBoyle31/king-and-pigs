@@ -5,14 +5,16 @@ export var speed := 45.0
 export var gravity := 500.0
 export var jump_impulse := 120.0
 export var direction := 1
-var velocity = Vector2.ZERO
-var previous_velocity = Vector2.ZERO
-var flip_player = true
+export var patrol :bool = true
+
+var velocity := Vector2.ZERO
+var previous_velocity := Vector2.ZERO
+var flip_player := true
 var animation_state_machine
 var current_animation
-var hit = false
-var dead = false
-var nextState = false
+var hit := false
+var dead := false
+var nextState := false
 
 
 onready var fsm := $StateMachine
