@@ -240,7 +240,7 @@ states/Run/node = SubResource( 17 )
 states/Run/position = Vector2( 711, 141 )
 transitions = [ "Idle", "Run", SubResource( 18 ), "Run", "Idle", SubResource( 19 ), "Idle", "Jump", SubResource( 20 ), "Run", "Jump", SubResource( 21 ), "Jump", "Fall", SubResource( 22 ), "Fall", "Ground", SubResource( 23 ), "Ground", "Idle", SubResource( 24 ), "Idle", "Attack", SubResource( 25 ), "Run", "Attack", SubResource( 26 ), "Attack", "Idle", SubResource( 27 ), "Idle", "Hit", SubResource( 28 ), "Hit", "Idle", SubResource( 29 ), "Hit", "Dead", SubResource( 30 ) ]
 start_node = "Run"
-graph_offset = Vector2( -208, 45 )
+graph_offset = Vector2( -197, -177 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=32]
 
@@ -299,7 +299,6 @@ hframes = 2
 visible = false
 texture = ExtResource( 7 )
 hframes = 5
-frame = 1
 
 [node name="Dead" type="Sprite" parent="Animations"]
 visible = false
@@ -383,6 +382,7 @@ shape = SubResource( 35 )
 
 [node name="Stats" parent="." instance=ExtResource( 19 )]
 max_health = 2
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="PacingTimer" to="." method="_on_PacingTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
@@ -390,7 +390,5 @@ max_health = 2
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 
 [editable path="PunchHitbox"]
-
 [editable path="Hurtbox"]
-
 [editable path="PlayerDetectionZone"]

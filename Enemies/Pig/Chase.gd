@@ -30,9 +30,9 @@ func physics_update(delta: float) -> void:
 
 	pig.velocity.x = pig.speed * pig.direction
 	if pig.velocity.x > 0:
-		pig.flip_player = true
+		pig.flip_pig = true
 	elif pig.velocity.x < 0:
-		pig.flip_player = false
+		pig.flip_pig = false
 	
 	pig.velocity.y += pig.gravity * delta
 	pig.velocity = pig.move_and_slide(pig.velocity, Vector2.UP)

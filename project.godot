@@ -15,6 +15,16 @@ _global_script_classes=[ {
 "path": "res://Hit and Hurt Boxes/Hitbox.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "KingPig",
+"language": "GDScript",
+"path": "res://Enemies/KingPig/KingPig.gd"
+}, {
+"base": "State",
+"class": "KingPigState",
+"language": "GDScript",
+"path": "res://Enemies/KingPig/KingPigState.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Pig",
 "language": "GDScript",
 "path": "res://Enemies/Pig/Pig.gd"
@@ -51,6 +61,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Hitbox": "",
+"KingPig": "",
+"KingPigState": "",
 "Pig": "",
 "PigState": "",
 "Player": "",
